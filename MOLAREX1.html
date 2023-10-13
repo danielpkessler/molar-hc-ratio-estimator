@@ -177,38 +177,6 @@
         }
     </script>
 
-
-    <script>
-        function downloadAsPDF() {
-            const resultElement = document.getElementById("result");
-            const resultText = resultElement.textContent;
-
-            if (!resultText.trim()) {
-                alert("No result to export.");
-                return;
-            }
-
-            const pdfOptions = {
-                margin: 10,
-                filename: "molar_ratio.pdf",
-                image: { type: "jpeg", quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-            };
-
-            html2pdf().from(resultElement).set(pdfOptions).outputPdf().then(function (pdf) {
-                const blob = pdf.output("blob");
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.style.display = "none";
-                a.href = url;
-                a.download = "molar_ratio.pdf";
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            });
-        }
-    </script>
 </body>
 
 </html>
