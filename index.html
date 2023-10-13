@@ -20,20 +20,27 @@
         }
 
         h1 {
-            color: #333;
+            color: blue;
+            font-size: 28px;
         }
 
-        label,
+        h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
         input {
             display: block;
-            margin: 10px 0;
+            margin: 10px auto;
+            text-align: center;
         }
 
         input[type="number"],
         input[type="text"],
         input[type="date"] {
-            width: 100%;
-            padding: 10px;
+            width: 50%;
+            padding: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
@@ -41,16 +48,20 @@
 
         .time-input {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
         }
 
         .time-input input {
-            width: 47%;
+            width: 24%;
+            margin: 10px 0;
         }
 
         .btn-container {
             display: flex;
             justify-content: center;
+            margin-top: 50px;
+            margin-bottom: 20px;
         }
 
         button {
@@ -67,12 +78,21 @@
             margin-top: 20px;
             white-space: pre-line;
         }
+
+        #logo {
+            width: 400px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Molar H/Corg Ratio Calculator</h1>
+        <!-- Display the logo image -->
+        <img id="logo" src="logo.png" alt="General Biochar Systems Logo">
+
+        <h1>General Biochar Systems</h1>
+        <h2 style="font-size: 20px; margin-bottom: 40px;">Molar H/Corg Ratio Calculator</h2>
 
         <label for="hydrogen">Enter the hydrogen ratio:</label>
         <input type="number" id="hydrogen" placeholder="Hydrogen ratio">
@@ -104,13 +124,12 @@
 
         <div class="btn-container">
             <button onclick="calculateMolarRatio()">Calculate Molar Ratio</button>
-            <button onclick="downloadAsPDF()">Download as PDF</button>
+            <div style="margin: 10px;"></div>
+            <button onclick="downloadAsText()">Download as Text</button>
         </div>
 
         <p id="result"></p>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 
     <script>
         function calculateMolarRatio() {
@@ -170,14 +189,34 @@
                 if (sampleDate !== "") {
                     resultMessage += "Sample Date: " + sampleDate + "\n";
                 }
-                // 49ERS
 
                 // Display the result
                 document.getElementById("result").textContent = resultMessage;
             }
         }
-    </script>
 
+        function downloadAsText() {
+            // Get the result text
+            var resultText = document.getElementById("result").textContent;
+
+            // Create a blob with the text content
+            var blob = new Blob([resultText], { type: "text/plain" });
+
+            // Create a temporary URL for the blob
+            var url = window.URL.createObjectURL(blob);
+
+            // Create a temporary link element to trigger the download
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = "molar_ratio.txt";
+
+            // Trigger a click event to download the file
+            a.click();
+
+            // Release the allocated resources
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
 </body>
 
 </html>
