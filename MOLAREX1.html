@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Molar H/Corg Ratio Calculator</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label,
+        input {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .time-input {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .time-input input {
+            width: 47%;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #result {
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Molar H/Corg Ratio Calculator</h1>
+
+        <label for="hydrogen">Enter the hydrogen ratio:</label>
+        <input type="number" id="hydrogen" placeholder="Hydrogen ratio">
+
+        <label for="carbon">Enter the carbon ratio:</label>
+        <input type="number" id="carbon" placeholder="Carbon ratio">
+
+        <!-- Additional input fields -->
+        <label for="biomassType">Biomass Type:</label>
+        <input type="text" id="biomassType" placeholder="Biomass Type">
+
+        <label for="temperature">Temperature in Celsius:</label>
+        <input type="number" id="temperature" placeholder="Temperature (°C)">
+
+        <label for="residenceHours">Time in Residence:</label>
+        <div class="time-input">
+            <input type="number" id="residenceHours" placeholder="Hours">
+            <input type="number" id="residenceMinutes" placeholder="Minutes" min="0" max="59">
+        </div>
+
+        <label for="fedBiomass">Fed Biomass:</label>
+        <input type="number" id="fedBiomass" placeholder="Fed Biomass (kg)">
+
+        <label for="BiocharYield">Biochar Yield:</label>
+        <input type="number" id="BiocharYield" placeholder="Biochar Yield (kg)">
+
+        <label for="sampleDate">Sample Date:</label>
+        <input type="date" id="sampleDate">
+
+        <div class="btn-container">
+            <button onclick="calculateMolarRatio()">Calculate Molar Ratio</button>
+            <button onclick="downloadAsPDF()">Download as PDF</button>
+        </div>
+
+        <p id="result"></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+    <script>
+        function calculateMolarRatio() {
+            // Get the values of the input fields
+            var hydrogen = parseFloat(document.getElementById("hydrogen").value);
+            var carbon = parseFloat(document.getElementById("carbon").value);
+            var biomassType = document.getElementById("biomassType").value;
+            var temperature = parseFloat(document.getElementById("temperature").value);
+            var residenceHours = parseInt(document.getElementById("residenceHours").value);
+            var residenceMinutes = parseInt(document.getElementById("residenceMinutes").value);
+            var fedBiomass = parseFloat(document.getElementById("fedBiomass").value);
+            var BiocharYield = parseFloat(document.getElementById("BiocharYield").value);
+            var sampleDate = document.getElementById("sampleDate").value;
+
+            // Initialize the error flag
+            var hasError = false;
+
+            // Check if the input is valid for hydrogen and carbon ratios
+            if (isNaN(hydrogen) || isNaN(carbon) || carbon === 0) {
+                document.getElementById("result").textContent = "Please enter valid numbers for hydrogen and carbon ratios. Carbon cannot be zero.";
+                hasError = true;
+            }
+
+            // Check if the input is valid for residence time (minutes)
+            if (!isNaN(residenceMinutes) && (residenceMinutes < 0 || residenceMinutes > 59)) {
+                document.getElementById("result").textContent = "Please enter a valid number for minutes (0-59).";
+                hasError = true;
+            }
+
+            // If there is no error, perform the calculation and display the result
+            if (!hasError) {
+                // Calculate the Molar H/Corg Ratio with 5 decimal places
+                var molarRatio = (hydrogen / carbon) * (12 / 1.0);
+
+                // Prepare the result message
+                var resultMessage = "Molar H/Corg Ratio: " + molarRatio.toFixed(5) + "\n";
+
+                // Display input values with labels if specified, otherwise display a blank field
+                if (biomassType !== "") {
+                    resultMessage += "Biomass Type: " + biomassType + "\n";
+                }
+                if (!isNaN(temperature)) {
+                    resultMessage += "Temperature: " + temperature + "°C\n";
+                }
+                if (!isNaN(residenceHours) || !isNaN(residenceMinutes)) {
+                    var hoursString = residenceHours > 0 ? residenceHours + " hours" : "";
+                    var minutesString = residenceMinutes > 0 ? residenceMinutes + " minutes" : "";
+                    var residenceTimeString = (hoursString + " " + minutesString).trim();
+                    resultMessage += "Residence Time: " + residenceTimeString + "\n";
+                }
+                if (!isNaN(fedBiomass)) {
+                    resultMessage += "Fed Biomass: " + fedBiomass + " kg\n";
+                }
+                if (!isNaN(BiocharYield)) {
+                    resultMessage += "Biochar Yield: " + BiocharYield + " kg\n";
+                }
+                if (sampleDate !== "") {
+                    resultMessage += "Sample Date: " + sampleDate + "\n";
+                }
+
+                // Display the result
+                document.getElementById("result").textContent = resultMessage;
+            }
+        }
+    </script>
+
+
+    <script>
+        function downloadAsPDF() {
+            const resultElement = document.getElementById("result");
+            const resultText = resultElement.textContent;
+
+            if (!resultText.trim()) {
+                alert("No result to export.");
+                return;
+            }
+
+            const pdfOptions = {
+                margin: 10,
+                filename: "molar_ratio.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            };
+
+            html2pdf().from(resultElement).set(pdfOptions).outputPdf().then(function (pdf) {
+                const blob = pdf.output("blob");
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.style.display = "none";
+                a.href = url;
+                a.download = "molar_ratio.pdf";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            });
+        }
+    </script>
+</body>
+
+</html>
