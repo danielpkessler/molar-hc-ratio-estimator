@@ -20,25 +20,16 @@
         }
 
         h1 {
-            color: blue;
-            font-size: 28px;
-        }
-
-        h2 {
             color: #333;
             font-size: 20px;
             margin-bottom: 15px;
         }
 
-        input {
+        input,
+        select {
             display: block;
             margin: 10px auto;
             text-align: center;
-        }
-
-        input[type="number"],
-        input[type="text"],
-        input[type="date"] {
             width: 50%;
             padding: 5px;
             border: 1px solid #ccc;
@@ -50,11 +41,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .time-input input {
-            width: 24%;
-            margin: 10px 0;
+            flex-direction: column;
         }
 
         .btn-container {
@@ -80,8 +67,53 @@
         }
 
         #logo {
-            width: 400px;
+            width: 250px;
             margin: 20px 0;
+        }
+
+        #biomassType {
+            width: 52%;
+            /* You can adjust the width as needed */
+        }
+
+        .formula {
+            font-style: italic;
+            font-size: 16px;
+            font-family: "Times New Roman", Times, serif;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .formula {
+            font-style: italic;
+            font-size: 16px;
+            font-family: "Times New Roman", Times, serif;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .formula p {
+            margin: 0;
+        }
+
+        .fraction {
+            display: inline-block;
+        }
+
+        .numerator {
+            text-align: center;
+            border-bottom: 1px solid black;
+            padding: 5px;
+        }
+
+        .denominator {
+            text-align: center;
+            padding: 5px;
+        }
+
+        .block-text {
+            text-align: justify;
+            text-justify: inter-word;
         }
     </style>
 </head>
@@ -91,8 +123,35 @@
         <!-- Display the logo image -->
         <img id="logo" src="logo.png" alt="General Biochar Systems Logo">
 
-        <h1>General Biochar Systems</h1>
-        <h2 style="font-size: 20px; margin-bottom: 40px;">Molar H/Corg Ratio Calculator</h2>
+        <h1 style="font-size: 25px; margin-bottom: 30px;">Molar H/C Ratio Estimator</h1>
+
+        <p class="block-text" style="margin-bottom: 40px;">In the world of biochar, understanding the quality and
+            characteristics of this remarkable carbon-rich
+            material is crucial for its diverse applications. One key indicator of biochar's quality is the Molar H/C
+            ratio, a critical molar ratio that reflects the proportion of hydrogen to carbon in the organic fraction of
+            biochar. This ratio plays a pivotal role in assessing biochar's composition and, consequently, its
+            suitability for various uses. A higher H/C ratio signifies greater reactivity and potential as an energy
+            source, making it an ideal choice for applications like soil enhancement. Conversely, a lower ratio suggests
+            enhanced stability, making it a preferred candidate for carbon sequestration. Understanding the Molar H/C
+            ratio allows biochar enthusiasts and environmentalists to make well-informed decisions about how to harness
+            the unique benefits of this eco-friendly resource for sustainable farming, carbon storage, and more.</p>
+        </p>
+
+        <div class="formula">
+            <h2 style="font-size: 20px; margin-bottom: 10px; font-style: normal;">Formula</h2>
+            <p>
+                𝐻𝐶<sub>org</sub> / (𝑚𝑜𝑙𝑎𝑟) =<br>
+                𝑚<sub>H</sub> (%) / 𝑚<sub>C</sub> (%) × M<sub>C</sub> (g mol<sup>-1</sup>) / M<sub>H</sub> (g
+                mol<sup>-1>) = 𝑚<sub>H</sub> (%) / 𝑚<sub>C</sub> (%) × 12/1.0
+            </p>
+            <p style="margin-top: 20px;">
+                <a href="https://puro.earth/articles/puro-standard-biochar-methodology-edition-2022-is-out-now-743"
+                    target="_blank">
+                    Reference
+                    <div style="margin-bottom: 50px;"></div>
+                </a>
+            </p>
+        </div>
 
         <label for="hydrogen">Enter the hydrogen ratio:</label>
         <input type="number" id="hydrogen" placeholder="Hydrogen ratio">
@@ -102,25 +161,43 @@
 
         <!-- Additional input fields -->
         <label for="biomassType">Biomass Type:</label>
-        <input type="text" id="biomassType" placeholder="Biomass Type">
+        <select id="biomassType" name="biomassType" style="width: 50%;" onchange="checkBiomassType()">
+            <option value="" selected disabled>Select</option>
+            <option value="Agave bagasse">Agave bagasse</option>
+            <option value="Corn stubble">Corn stubble</option>
+            <option value="Wood">Wood</option>
+            <option value="Sugar cane">Sugar cane</option>
+            <option value="Manure">Manure</option>
+            <option value="Bamboo">Bamboo</option>
+            <option value="Agricultural waste">Agricultural waste</option>
+            <option value="Urban green waste">Urban green waste</option>
+            <option value="Blend">Blend</option>
+            <option value="Other biomass">Other biomass</option>
+        </select>
 
-        <label for="temperature">Temperature in Celsius:</label>
-        <input type="number" id="temperature" placeholder="Temperature (°C)">
-
-        <label for="residenceHours">Time in Residence:</label>
-        <div class="time-input">
-            <input type="number" id="residenceHours" placeholder="Hours">
-            <input type="number" id="residenceMinutes" placeholder="Minutes" min="0" max="59">
+        <div id="customBiomassInput" style="display: none;">
+            <input type="text" id="customBiomass" name="customBiomass" placeholder="Enter custom biomass type">
         </div>
 
-        <label for="fedBiomass">Fed Biomass:</label>
-        <input type="number" id="fedBiomass" placeholder="Fed Biomass (kg)">
+        <label for="temperature">Temperature in Celsius:</label>
+        <input type="number" id="temperature" placeholder="Temperature (°C">
 
-        <label for="BiocharYield">Biochar Yield:</label>
-        <input type="number" id="BiocharYield" placeholder="Biochar Yield (kg)">
+        <label for="residenceMinutes">Residence Time (Minutes):</label>
+        <div class="time-input" style="margin: 0 auto;">
+            <input type="number" id="residenceMinutes" placeholder="Minutes" min="0">
+        </div>
 
         <label for="sampleDate">Sample Date:</label>
         <input type="date" id="sampleDate">
+
+        <label for="lotNumber">Lot Number:</label>
+        <input type="text" id="lotNumber" placeholder="Lot Number">
+
+        <label for="productionDate">Production Date:</label>
+        <input type="date" id="productionDate" placeholder="Production Date">
+
+        <label for="sampleSize">Sample Size:</label>
+        <input type="number" id="sampleSize" placeholder="Sample Size (kg)">
 
         <div class="btn-container">
             <button onclick="calculateMolarRatio()">Calculate Molar Ratio</button>
@@ -132,17 +209,35 @@
     </div>
 
     <script>
+        function checkBiomassType() {
+            var biomassSelect = document.getElementById("biomassType");
+            var customBiomassInput = document.getElementById("customBiomassInput");
+
+            if (biomassSelect.value === "Other biomass") {
+                customBiomassInput.style.display = "block";
+            } else {
+                customBiomassInput.style.display = "none";
+                // Clear any previously entered custom biomass
+                document.getElementById("customBiomass").value = "";
+            }
+        }
+    </script>
+
+    <script>
         function calculateMolarRatio() {
             // Get the values of the input fields
             var hydrogen = parseFloat(document.getElementById("hydrogen").value);
             var carbon = parseFloat(document.getElementById("carbon").value);
-            var biomassType = document.getElementById("biomassType").value;
+            var biomassSelect = document.getElementById("biomassType");
+            var biomassType = biomassSelect.value === "Other biomass"
+                ? document.getElementById("customBiomass").value // Use custom biomass if selected
+                : biomassSelect.value; // Use the selected value from the dropdown
             var temperature = parseFloat(document.getElementById("temperature").value);
-            var residenceHours = parseInt(document.getElementById("residenceHours").value);
             var residenceMinutes = parseInt(document.getElementById("residenceMinutes").value);
-            var fedBiomass = parseFloat(document.getElementById("fedBiomass").value);
-            var BiocharYield = parseFloat(document.getElementById("BiocharYield").value);
             var sampleDate = document.getElementById("sampleDate").value;
+            var lotNumber = document.getElementById("lotNumber").value;
+            var productionDate = document.getElementById("productionDate").value;
+            var sampleSize = parseFloat(document.getElementById("sampleSize").value);
 
             // Initialize the error flag
             var hasError = false;
@@ -153,41 +248,35 @@
                 hasError = true;
             }
 
-            // Check if the input is valid for residence time (minutes)
-            if (!isNaN(residenceMinutes) && (residenceMinutes < 0 || residenceMinutes > 59)) {
-                document.getElementById("result").textContent = "Please enter a valid number for minutes (0-59).";
-                hasError = true;
-            }
-
             // If there is no error, perform the calculation and display the result
             if (!hasError) {
-                // Calculate the Molar H/Corg Ratio with 5 decimal places
-                var molarRatio = (hydrogen / carbon) * (12 / 1.0);
+                // Calculate the Molar H/C Ratio with 5 decimal places
+                var molarRatio = (hydrogen / carbon);
 
                 // Prepare the result message
-                var resultMessage = "Molar H/Corg Ratio: " + molarRatio.toFixed(5) + "\n";
+                var resultMessage = "Molar H/C Ratio: " + molarRatio.toFixed(5) + "\n";
 
                 // Display input values with labels if specified, otherwise display a blank field
-                if (biomassType !== "") {
+                if (biomassType) {
                     resultMessage += "Biomass Type: " + biomassType + "\n";
                 }
                 if (!isNaN(temperature)) {
                     resultMessage += "Temperature: " + temperature + "°C\n";
                 }
-                if (!isNaN(residenceHours) || !isNaN(residenceMinutes)) {
-                    var hoursString = residenceHours > 0 ? residenceHours + " hours" : "";
-                    var minutesString = residenceMinutes > 0 ? residenceMinutes + " minutes" : "";
-                    var residenceTimeString = (hoursString + " " + minutesString).trim();
-                    resultMessage += "Residence Time: " + residenceTimeString + "\n";
+                if (!isNaN(residenceMinutes)) {
+                    resultMessage += "Residence Time: " + residenceMinutes + " minutes\n";
                 }
-                if (!isNaN(fedBiomass)) {
-                    resultMessage += "Fed Biomass: " + fedBiomass + " kg\n";
-                }
-                if (!isNaN(BiocharYield)) {
-                    resultMessage += "Biochar Yield: " + BiocharYield + " kg\n";
-                }
-                if (sampleDate !== "") {
+                if (sampleDate) {
                     resultMessage += "Sample Date: " + sampleDate + "\n";
+                }
+                if (lotNumber) {
+                    resultMessage += "Lot Number: " + lotNumber + "\n";
+                }
+                if (productionDate) {
+                    resultMessage += "Production Date: " + productionDate + "\n";
+                }
+                if (!isNaN(sampleSize)) {
+                    resultMessage += "Sample Size: " + sampleSize + " kg\n";
                 }
 
                 // Display the result
