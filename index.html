@@ -161,7 +161,7 @@
 
         <!-- Additional input fields -->
         <label for="biomassType">Biomass Type:</label>
-        <select id="biomassType" name="biomassType" style="width: 50%;" onchange="checkBiomassType()">
+        <select id="biomassType" name="biomassType" style="width: 52%;" onchange="checkBiomassType()">
             <option value="" selected disabled>Select</option>
             <option value="Agave bagasse">Agave bagasse</option>
             <option value="Corn stubble">Corn stubble</option>
@@ -179,10 +179,14 @@
             <input type="text" id="customBiomass" name="customBiomass" placeholder="Enter custom biomass type">
         </div>
 
-        <label for="temperature">Pyrolysis Temperature:</label>
-        <input type="number" id="temperature" placeholder="Pyrolysis Temperature (°C)">
+        <div id="BlendBiomassInput" style="display: none;">
+            <input type="text" id="BlendBiomass" name="BlendBiomass" placeholder="Enter custom biomass blend">
+        </div>
 
-        <label for="residenceMinutes">Residence Time (Minutes):</label>
+        <label for="temperature">Pyrolysis Temperature:</label>
+        <input type="number" id="temperature" placeholder="Pyrolysis (°C)">
+
+        <label for="residenceMinutes">Residence Time:</label>
         <div class="time-input" style="margin: 0 auto;">
             <input type="number" id="residenceMinutes" placeholder="Minutes" min="0">
         </div>
@@ -212,16 +216,24 @@
         function checkBiomassType() {
             var biomassSelect = document.getElementById("biomassType");
             var customBiomassInput = document.getElementById("customBiomassInput");
+            var blendBiomassInput = document.getElementById("BlendBiomassInput");
 
             if (biomassSelect.value === "Other biomass") {
                 customBiomassInput.style.display = "block";
+                blendBiomassInput.style.display = "none";
+            } else if (biomassSelect.value === "Blend") {
+                customBiomassInput.style.display = "none";
+                blendBiomassInput.style.display = "block";
             } else {
                 customBiomassInput.style.display = "none";
-                // Clear any previously entered custom biomass
+                blendBiomassInput.style.display = "none";
+                // Clear any previously entered custom or blend biomass
                 document.getElementById("customBiomass").value = "";
+                document.getElementById("BlendBiomass").value = "";
             }
         }
     </script>
+
 
     <script>
         function calculateMolarRatio() {
@@ -238,6 +250,7 @@
             var lotNumber = document.getElementById("lotNumber").value;
             var productionDate = document.getElementById("productionDate").value;
             var sampleSize = parseFloat(document.getElementById("sampleSize").value);
+            var blendBiomass = document.getElementById("BlendBiomass").value; // Get custom blend input value
 
             // Initialize the error flag
             var hasError = false;
@@ -251,14 +264,18 @@
             // If there is no error, perform the calculation and display the result
             if (!hasError) {
                 // Calculate the Molar H/C Ratio with 5 decimal places
-                var molarRatio = (hydrogen / carbon);
+                var molarRatio = (hydrogen / carbon) * (12 / 1.0);
 
                 // Prepare the result message
                 var resultMessage = "Molar H/C Ratio: " + molarRatio.toFixed(5) + "\n";
 
                 // Display input values with labels if specified, otherwise display a blank field
                 if (biomassType) {
-                    resultMessage += "Biomass Type: " + biomassType + "\n";
+                    if (biomassSelect.value === "Blend") {
+                        resultMessage += "Biomass Type: " + blendBiomass + "\n";
+                    } else {
+                        resultMessage += "Biomass Type: " + biomassType + "\n";
+                    }
                 }
                 if (!isNaN(temperature)) {
                     resultMessage += "Temperature: " + temperature + "°C\n";
@@ -283,6 +300,8 @@
                 document.getElementById("result").textContent = resultMessage;
             }
         }
+
+
 
         function downloadAsText() {
             // Get the result text
