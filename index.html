@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Molar H/Corg Ratio Calculator</title>
+    <title>Molar H/C Molar Ratio Calculator</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -35,6 +35,14 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+        }
+
+        /* Remove spin buttons from number inputs */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
         }
 
         .time-input {
@@ -115,49 +123,73 @@
             text-align: justify;
             text-justify: inter-word;
         }
+
+        .language-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 
 <body>
+
+    <div class="language-buttons">
+        <button onclick="setLanguage('en')">English</button>
+        <button onclick="setLanguage('es')">Español</button>
+    </div>
+
     <div class="container">
         <!-- Display the logo image -->
         <img id="logo" src="logo.png" alt="General Biochar Systems Logo">
 
-        <h1 style="font-size: 25px; margin-bottom: 30px;">Molar H/C Ratio Estimator</h1>
+        <h1 style="font-size: 25px; margin-bottom: 30px;">H/C Molar Ratio Estimator</h1>
 
-        <p class="block-text" style="margin-bottom: 40px;">In the world of biochar, understanding the quality and
-            characteristics of this remarkable carbon-rich
-            material is crucial for its diverse applications. One key indicator of biochar's quality is the Molar H/C
-            ratio, a critical molar ratio that reflects the proportion of hydrogen to carbon in the organic fraction of
-            biochar. This ratio plays a pivotal role in assessing biochar's composition and, consequently, its
-            suitability for various uses. A higher H/C ratio signifies greater reactivity and potential as an energy
-            source, making it an ideal choice for applications like soil enhancement. Conversely, a lower ratio suggests
-            enhanced stability, making it a preferred candidate for carbon sequestration. Understanding the Molar H/C
-            ratio allows biochar enthusiasts and environmentalists to make well-informed decisions about how to harness
-            the unique benefits of this eco-friendly resource for sustainable farming, carbon storage, and more.</p>
+        <p class="block-text" style="margin-bottom: 20px;">
+            In the world of biochar, a comprehensive understanding of the quality and characteristics of this
+            carbon-rich material is essential for its diverse applications. One crucial indicator of biochar quality is
+            the Molar H/C ratio, which reflects the proportion of hydrogen to carbon in the organic fraction of biochar.
+            This ratio is pivotal in assessing biochar's composition and, consequently, its suitability for various
+            uses.
         </p>
+
+        <p class="block-text">
+            A higher H/C ratio indicates greater reactivity and potential as an energy source, making it an excellent
+            choice for applications like soil enhancement. Conversely, a lower ratio suggests enhanced stability, making
+            it a preferred candidate for carbon sequestration. Understanding the Molar H/C ratio empowers biochar
+            enthusiasts and environmentalists to make well-informed decisions on how to harness the unique benefits of
+            this eco-friendly resource for sustainable farming, carbon storage, and more.
+        </p>
+
+        <p class="block-text">
+            <strong>DISCLAIMER:</strong> This calculator provides estimates for the H/C molar ratio, which can be useful
+            for general assessment. However, it's important to note that the most accurate determination of the
+            hydrogen-to-carbon ratio for biochar requires the measurement of the total organic carbon. In this case, we
+            are accounting for total carbon, not organic carbon.
+        </p>
+        <p class="block-text" style="margin-bottom: 50px;">
+        </p>
+
 
         <div class="formula">
             <h2 style="font-size: 20px; margin-bottom: 10px; font-style: normal;">Formula</h2>
             <p>
-                𝐻𝐶<sub>org</sub> / (𝑚𝑜𝑙𝑎𝑟) =<br>
-                [𝑚<sub>H</sub> (%) / 𝑚<sub>C</sub> (%)] × [M<sub>C</sub> (g mol<sup>-1</sup>) / M<sub>H</sub> (g
-                mol<sup>-1</sup>)] = [𝑚<sub>H</sub> (%) / 𝑚<sub>C</sub> (%)] × [12 / 1.0]
+                𝐻/𝐶</sub> / (𝑚𝑜𝑙𝑎𝑟) = (H total(%) / C total(%)) / 12
             </p>
             <p style="margin-top: 20px;">
                 <a href="https://puro.earth/articles/puro-standard-biochar-methodology-edition-2022-is-out-now-743"
                     target="_blank">
                     Reference
-                    <div style="margin-bottom: 50px;"></div>
+                    <div style="margin-bottom: 35px;"></div>
                 </a>
             </p>
         </div>
 
-        <label for="hydrogen">Enter the hydrogen ratio:</label>
-        <input type="number" id="hydrogen" placeholder="Hydrogen ratio">
+        <label for="hydrogen">Enter the total amount of hydrogen:</label>
+        <input type="number" id="hydrogen" placeholder="Total Hydrogen in %">
 
-        <label for="carbon">Enter the carbon ratio:</label>
-        <input type="number" id="carbon" placeholder="Carbon ratio">
+        <label for="carbon">Enter the total amount of carbon:</label>
+        <input type="number" id="carbon" placeholder="Total Carbon in %">
 
         <!-- Additional input fields -->
         <label for="biomassType">Biomass Type:</label>
@@ -220,7 +252,7 @@
 
             if (biomassSelect.value === "Other biomass") {
                 customBiomassInput.style.display = "block";
-                blendBiomassInput.style.display = "none";
+                blendBiomassInput.style display = "none";
             } else if (biomassSelect.value === "Blend") {
                 customBiomassInput.style.display = "none";
                 blendBiomassInput.style.display = "block";
@@ -264,7 +296,7 @@
             // If there is no error, perform the calculation and display the result
             if (!hasError) {
                 // Calculate the Molar H/C Ratio with 5 decimal places
-                var molarRatio = (hydrogen / carbon) * (12 / 1.0);
+                var molarRatio = (hydrogen / carbon) * 12;
 
                 // Prepare the result message
                 var resultMessage = "Molar H/C Ratio: " + molarRatio.toFixed(5) + "\n";
@@ -300,8 +332,6 @@
                 document.getElementById("result").textContent = resultMessage;
             }
         }
-
-
 
         function downloadAsText() {
             // Get the result text
