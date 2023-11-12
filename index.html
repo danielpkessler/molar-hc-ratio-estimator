@@ -252,7 +252,7 @@
 
             if (biomassSelect.value === "Other biomass") {
                 customBiomassInput.style.display = "block";
-                blendBiomassInput.style display = "none";
+                blendBiomassInput.style.display = "none";  // Corrected line
             } else if (biomassSelect.value === "Blend") {
                 customBiomassInput.style.display = "none";
                 blendBiomassInput.style.display = "block";
@@ -264,6 +264,7 @@
                 document.getElementById("BlendBiomass").value = "";
             }
         }
+
     </script>
 
 
