@@ -2,17 +2,66 @@
 <html>
 
 <head>
-    <title>Calculadora de Relación Molar H/C</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* Add some styling for aesthetics */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            /* Light gray color for the header background */
+            color: #000;
+            /* Set text color to black */
+            padding: 10px;
+            border-bottom: 3px solid #000;
+            /* Thicker black border at the bottom of the header */
+        }
+
+        #logoContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        #companyLogos img {
+            margin-right: 10px;
+        }
+
+        #companyLinks {
+            text-align: left;
+            margin: 0 auto;
+            margin-left: 5px;
+            /* Adjust the margin as needed */
+        }
+
+        #companyLinks a {
+            color: #000;
+            /* Set link color to black */
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        #companyLinks a strong {
+            font-weight: bold;
+            /* Make the text bold */
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #fff;
-            /* Set the background color to bright white */
             text-align: center;
             margin: 0;
-            /* Remove default margin to ensure consistency */
             padding: 0;
-            /* Remove default padding to ensure consistency */
         }
 
         .container {
@@ -22,12 +71,8 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: none;
-            /* Remove the box shadow */
             border: none;
-            /* Remove the border */
         }
-
-
 
         h1 {
             color: #333;
@@ -47,7 +92,6 @@
             font-size: 16px;
         }
 
-        /* Remove spin buttons from number inputs */
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
@@ -79,6 +123,13 @@
             font-size: 16px;
         }
 
+        .dark-gray-button {
+            background-color: #888;
+            /* Slightly darker gray color for the button */
+            color: #fff;
+            /* White text color for better visibility */
+        }
+
         #result {
             margin-top: 20px;
             white-space: pre-line;
@@ -91,7 +142,6 @@
 
         #biomassType {
             width: 52%;
-            /* You can adjust the width as needed */
         }
 
         .formula {
@@ -148,8 +198,10 @@
         }
 
         .language-dropdown button {
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #888;
+            /* Slightly darker gray color for the button */
+            color: #fff;
+            /* White text color for better visibility */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -197,473 +249,525 @@
 </head>
 
 <body>
-
-    <!-- Language Dropdown -->
-    <div class="language-dropdown">
-        <button id="languageButton" onclick="toggleLanguage()">Language</button>
-        <div class="language-dropdown-content">
-            <button onclick="setLanguage('en')">English</button>
-            <button onclick="setLanguage('es')">Español</button>
+    <header>
+        <div id="logoContainer">
+            <div id="companyLogos">
+                <img src="logoGBS.png" alt="General Biochar Systems Logo" width="100">
+                <img src="logo150.png" alt="The Next 150 Logo" width="120">
+            </div>
+            <div id="companyLinks">
+                <a href="https://www.generalbiochar.com/" target="_blank">Desarrollado por<br>
+                    <strong>General Biochar Systems </strong>y</a><br>
+                <a href="https://www.thenext150.com/" target="_blank"> <strong>The Next 150</strong></a>
+            </div>
         </div>
-    </div>
+        <!-- Add your existing content here -->
+    </header>
 
-    <div class="container spanish-content">
-        <!-- Display the logo image -->
-        <img id="logo" src="logo.png" alt="Logo de General Biochar Systems">
+    <title>Calculadora de Relación Molar H/C</title>
+    <style>
 
-        <h1 style="font-size: 25px; margin-bottom: 30px;">Estimador de Relación Molar H/C</h1>
+    </style>
+    </head>
 
-        <p class="block-text" style="margin-bottom: 20px;">
-            En el mundo del biochar, comprender la calidad y las características de este
-            material rico en carbono es esencial para sus diversos usos. Un indicador crucial de la calidad
-            del biochar es la relación Molar H/C, que refleja la relación de hidrógeno a carbono en la fracción
-            orgánica del biochar. Esta relación es fundamental para evaluar la composición del biochar y, en
-            consecuencia, su idoneidad para diversos usos.
-        </p>
+    <body>
 
-        <p class="block-text">
-            El biochar con una relación H/C más alta indica una mayor reactividad y potencial como fuente de energía, lo que lo
-            convierte en una excelente opción para aplicaciones como la mejora del suelo. Por el contrario, una
-            relación más baja sugiere una mayor estabilidad, lo que significa que este biohcar en ideal para la
-            secuestración de carbono. Comprender la realción Molar H/C ayuda a los entusiastas del biochar y a los
-            defensores del medio ambiente a tomar decisiones sobre cómo aprovechar los beneficios únicos de
-            este recurso que favorece el cuidado del medio ambiente para la agricultura sustentable, el almacenamiento de carbono y
-            más.
-        </p>
+        <!-- Language Dropdown -->
+        <div class="language-dropdown">
+            <button id="languageButton" onclick="toggleLanguage()">Language</button>
+            <div class="language-dropdown-content">
+                <button onclick="setLanguage('en')">English</button>
+                <button onclick="setLanguage('es')">Español</button>
+            </div>
+        </div>
 
-        <p class="block-text">
-            <strong>DESCARGO DE RESPONSABILIDAD:</strong> Esta calculadora proporciona estimaciones para la relación
-            molar H/C, que puede ser útil para propósitos generales. Sin embargo, es importante tomar en cuenta que
-            la determinación más precisa de la relación hidrógeno-carbono para el biochar requiere la medición del
-            carbono orgánico total. En este caso, estamos considerando el carbono total, no el carbono orgánico.
-        </p>
-        <p class="block-text" style="margin-bottom: 50px;">
-        </p>
+        <div class="container spanish-content">
+            <!-- Display the logo image -->
+            <img id="logo" src="logo.png" alt="Logo de General Biochar Systems">
 
-        <div class="formula">
-            <h2 style="font-size: 20px; margin-bottom: 10px; font-style: normal;">Fórmula</h2>
-            <p>
-                𝐻/𝐶</sub> / (𝑚𝑜𝑙𝑎𝑟) = [H total(%) / C total(%)] / 12
+            <h1 style="font-size: 25px; margin-bottom: 30px;">Estimador de Relación Molar H/C</h1>
+
+            <p class="block-text" style="margin-bottom: 20px;">
+                En el mundo del biochar, comprender la calidad y las características de este
+                material rico en carbono es esencial para sus diversos usos. Un indicador crucial de la calidad
+                del biochar es la relación Molar H/C, que refleja la relación de hidrógeno a carbono en la fracción
+                orgánica del biochar. Esta relación es fundamental para evaluar la composición del biochar y, en
+                consecuencia, su idoneidad para diversos usos.
             </p>
-            <p style="margin-top: 20px;">
-                <a href="https://puro.earth/articles/puro-standard-biochar-methodology-edition-2022-is-out-now-743"
-                    target="_blank">
-                    Referencia
-                    <div style="margin-bottom: 35px;"></div>
-                </a>
+
+            <p class="block-text">
+                El biochar con una relación H/C más alta indica una mayor reactividad y potencial como fuente de
+                energía, lo
+                que lo
+                convierte en una excelente opción para aplicaciones como la mejora del suelo. Por el contrario, una
+                relación más baja sugiere una mayor estabilidad, lo que significa que este biohcar en ideal para la
+                secuestración de carbono. Comprender la realción Molar H/C ayuda a los entusiastas del biochar y a
+                los
+                defensores del medio ambiente a tomar decisiones sobre cómo aprovechar los beneficios únicos de
+                este recurso que favorece el cuidado del medio ambiente para la agricultura sustentable, el
+                almacenamiento
+                de carbono y
+                más.
             </p>
-        </div>
 
-        <label for="hydrogen">Ingrese la cantidad total de hidrógeno:</label>
-        <input type="number" id="hydrogen" placeholder="Hidrógeno total en %">
-
-        <label for="carbon">Ingrese la cantidad total de carbono:</label>
-        <input type="number" id="carbon" placeholder="Carbono total en %">
-
-        <!-- Campos de entrada adicionales -->
-        <label for="biomassType">Tipo de Biomasa:</label>
-        <select id="biomassType" name="biomassType" style="width: 52%;" onchange="checkBiomassType_es()">
-            <option value="" selected disabled>Seleccione</option>
-            <option value="Bagazo de Agave">Bagazo de Agave</option>
-            <option value="Rastrojo de Maíz">Rastrojo de Maíz</option>
-            <option value="Madera">Madera</option>
-            <option value="Caña de Azúcar">Caña de Azúcar</option>
-            <option value="Estiércol">Estiércol</option>
-            <option value="Bambú">Bambú</option>
-            <option value="Residuos Agrícolas">Residuos Agrícolas</option>
-            <option value="Residuos Verdes Urbanos">Residuos Verdes Urbanos</option>
-            <option value="Mezcla">Mezcla</option>
-            <option value="Otra biomasa">Otra biomasa</option>
-        </select>
-
-        <div id="customBiomassInput" style="display: none;">
-            <input type="text" id="customBiomass" name="customBiomass"
-                placeholder="Ingrese el tipo de biomasa personalizado">
-        </div>
-
-        <div id="BlendBiomassInput" style="display: none;">
-            <input type="text" id="BlendBiomass" name="BlendBiomass"
-                placeholder="Ingrese la mezcla personalizada de biomasa">
-        </div>
-
-        <label for="temperature">Temperatura de Pirólisis:</label>
-        <input type="number" id="temperature" placeholder="Pirólisis (°C)">
-
-        <label for="residenceMinutes">Tiempo de Residencia:</label>
-        <div class="time-input" style="margin: 0 auto;">
-            <input type="number" id="residenceMinutes" placeholder="Minutos" min="0">
-        </div>
-
-        <label for="sampleDate">Fecha de la Muestra:</label>
-        <input type="date" id="sampleDate">
-
-        <label for="lotNumber">Número de Lote:</label>
-        <input type="text" id="lotNumber" placeholder="Número de Lote">
-
-        <label for="productionDate">Fecha de Producción:</label>
-        <input type="date" id="productionDate" placeholder="Fecha de Producción">
-
-        <label for="sampleSize">Tamaño de la Muestra:</label>
-        <input type="number" id="sampleSize" placeholder="Tamaño de la Muestra (kg)">
-
-        <div class="btn-container">
-            <button onclick="calculateMolarRatio_es()">Calcular Relación Molar</button>
-            <div style="margin: 10px;"></div>
-            <button onclick="downloadAsText()">Descargar como Texto</button>
-        </div>
-
-        <p id="result"></p>
-    </div>
-
-    <!-- English Content -->
-    <div class="container english-content" style="display: none;">
-        <!-- Display the logo image -->
-        <img id="logo" src="logo.png" alt="General Biochar Systems Logo">
-
-        <h1 style="font-size: 25px; margin-bottom: 30px;">H/C Molar Ratio Estimator</h1>
-
-        <p class="block-text" style="margin-bottom: 20px;">
-            In the world of biochar, a comprehensive understanding of the quality and characteristics of this
-            carbon-rich material is essential for its diverse applications. One crucial indicator of biochar quality is
-            the Molar H/C ratio, which reflects the proportion of hydrogen to carbon in the organic fraction of biochar.
-            This ratio is pivotal in assessing biochar's composition and, consequently, its suitability for various
-            uses.
-        </p>
-
-        <p class="block-text">
-            A higher H/C ratio indicates greater reactivity and potential as an energy source, making it an excellent
-            choice for applications like soil enhancement. Conversely, a lower ratio suggests enhanced stability, making
-            it a preferred candidate for carbon sequestration. Understanding the Molar H/C ratio empowers biochar
-            enthusiasts and environmentalists to make well-informed decisions on how to harness the unique benefits of
-            this eco-friendly resource for sustainable farming, carbon storage, and more.
-        </p>
-
-        <p class="block-text">
-            <strong>DISCLAIMER:</strong> This calculator provides estimates for the H/C molar ratio, which can be useful
-            for general assessment. However, it's important to note that the most accurate determination of the
-            hydrogen-to-carbon ratio for biochar requires the measurement of the total organic carbon. In this case, we
-            are accounting for total carbon, not organic carbon.
-        </p>
-        <p class="block-text" style="margin-bottom: 50px;">
-        </p>
-
-        <div class="formula">
-            <h2 style="font-size: 20px; margin-bottom: 10px; font-style: normal;">Formula</h2>
-            <p>
-                𝐻/𝐶</sub> / (𝑚𝑜𝑙𝑎𝑟) = [H total(%) / C total(%)] / 12
+            <p class="block-text">
+                <strong>DESCARGO DE RESPONSABILIDAD:</strong> Esta calculadora proporciona estimaciones para la
+                relación
+                molar H/C, que puede ser útil para propósitos generales. Sin embargo, es importante tomar en cuenta
+                que
+                la determinación más precisa de la relación hidrógeno-carbono para el biochar requiere la medición
+                del
+                carbono orgánico total. En este caso, estamos considerando el carbono total, no el carbono orgánico.
             </p>
-            <p style="margin-top: 20px;">
-                <a href="https://puro.earth/articles/puro-standard-biochar-methodology-edition-2022-is-out-now-743"
-                    target="_blank">
-                    Reference
-                    <div style="margin-bottom: 35px;"></div>
-                </a>
+            <p class="block-text" style="margin-bottom: 50px;">
             </p>
+
+            <div class="formula">
+                <h2 style="font-size: 20px; margin-bottom: 10px; font-style: normal;">Fórmula</h2>
+                <p>
+                    𝐻/𝐶</sub> / (𝑚𝑜𝑙𝑎𝑟) = [H total(%) / C total(%)] / 12
+                </p>
+                <p style="margin-top: 20px;">
+                    <a href="https://puro.earth/articles/puro-standard-biochar-methodology-edition-2022-is-out-now-743"
+                        target="_blank">
+                        Referencia
+                        <div style="margin-bottom: 35px;"></div>
+                    </a>
+                </p>
+            </div>
+
+            <label for="hydrogen">Ingrese la cantidad total de hidrógeno:</label>
+            <input type="number" id="hydrogen" placeholder="Hidrógeno total en %">
+
+            <label for="carbon">Ingrese la cantidad total de carbono:</label>
+            <input type="number" id="carbon" placeholder="Carbono total en %">
+
+            <!-- Campos de entrada adicionales -->
+            <label for="biomassType">Tipo de Biomasa:</label>
+            <select id="biomassType" name="biomassType" style="width: 52%;" onchange="checkBiomassType_es()">
+                <option value="" selected disabled>Seleccione</option>
+                <option value="Bagazo de Agave">Bagazo de Agave</option>
+                <option value="Rastrojo de Maíz">Rastrojo de Maíz</option>
+                <option value="Madera">Madera</option>
+                <option value="Caña de Azúcar">Caña de Azúcar</option>
+                <option value="Estiércol">Estiércol</option>
+                <option value="Bambú">Bambú</option>
+                <option value="Residuos Agrícolas">Residuos Agrícolas</option>
+                <option value="Residuos Verdes Urbanos">Residuos Verdes Urbanos</option>
+                <option value="Mezcla">Mezcla</option>
+                <option value="Otra biomasa">Otra biomasa</option>
+            </select>
+
+            <div id="customBiomassInput" style="display: none;">
+                <input type="text" id="customBiomass" name="customBiomass"
+                    placeholder="Ingrese el tipo de biomasa personalizado">
+            </div>
+
+            <div id="BlendBiomassInput" style="display: none;">
+                <input type="text" id="BlendBiomass" name="BlendBiomass"
+                    placeholder="Ingrese la mezcla personalizada de biomasa">
+            </div>
+
+            <label for="temperature">Temperatura de Pirólisis:</label>
+            <input type="number" id="temperature" placeholder="Pirólisis (°C)">
+
+            <label for="residenceMinutes">Tiempo de Residencia:</label>
+            <div class="time-input" style="margin: 0 auto;">
+                <input type="number" id="residenceMinutes" placeholder="Minutos" min="0">
+            </div>
+
+            <label for="sampleDate">Fecha de la Muestra:</label>
+            <input type="date" id="sampleDate">
+
+            <label for="lotNumber">Número de Lote:</label>
+            <input type="text" id="lotNumber" placeholder="Número de Lote">
+
+            <label for="productionDate">Fecha de Producción:</label>
+            <input type="date" id="productionDate" placeholder="Fecha de Producción">
+
+            <label for="sampleSize">Tamaño de la Muestra:</label>
+            <input type="number" id="sampleSize" placeholder="Tamaño de la Muestra (kg)">
+
+            <div class="btn-container">
+                <button onclick="calculateMolarRatio_es()">Calcular Relación Molar</button>
+                <div style="margin: 10px;"></div>
+                <button onclick="downloadAsText()">Descargar como Texto</button>
+            </div>
+
+            <p id="result"></p>
         </div>
 
-        <label for="hydrogen_en">Enter the total amount of hydrogen:</label>
-        <input type="number" id="hydrogen_en" placeholder="Total Hydrogen in %">
+        <!-- English Content -->
+        <div class="container english-content" style="display: none;">
+            <!-- Display the logo image -->
+            <img id="logo" src="logo.png" alt="General Biochar Systems Logo">
 
-        <label for="carbon_en">Enter the total amount of carbon:</label>
-        <input type="number" id="carbon_en" placeholder="Total Carbon in %">
+            <h1 style="font-size: 25px; margin-bottom: 30px;">H/C Molar Ratio Estimator</h1>
 
-        <!-- Additional input fields -->
-        <label for="biomassType_en">Biomass Type:</label>
-        <select id="biomassType_en" name="biomassType_en" style="width: 52%;" onchange="checkBiomassType_en()">
-            <option value="" selected disabled>Select</option>
-            <option value="Agave Bagasse">Agave bagasse</option>
-            <option value="Corn Stubble">Corn stubble</option>
-            <option value="Wood">Wood</option>
-            <option value="Sugar cane">Sugar cane</option>
-            <option value="Manure">Manure</option>
-            <option value="Bamboo">Bamboo</option>
-            <option value="Agricultural Waste">Agricultural waste</option>
-            <option value="Urban Green wWste">Urban green waste</option>
-            <option value="Blend">Blend</option>
-            <option value="Other Biomass">Other biomass</option>
-        </select>
+            <p class="block-text" style="margin-bottom: 20px;">
+                In the world of biochar, a comprehensive understanding of the quality and characteristics of this
+                carbon-rich material is essential for its diverse applications. One crucial indicator of biochar
+                quality
+                is
+                the Molar H/C ratio, which reflects the proportion of hydrogen to carbon in the organic fraction of
+                biochar.
+                This ratio is pivotal in assessing biochar's composition and, consequently, its suitability for
+                various
+                uses.
+            </p>
 
-        <div id="customBiomassInput_en" style="display: none;">
-            <input type="text" id="customBiomass_en" name="customBiomass_en" placeholder="Enter custom biomass type">
+            <p class="block-text">
+                A higher H/C ratio indicates greater reactivity and potential as an energy source, making it an
+                excellent
+                choice for applications like soil enhancement. Conversely, a lower ratio suggests enhanced
+                stability,
+                making
+                it a preferred candidate for carbon sequestration. Understanding the Molar H/C ratio empowers
+                biochar
+                enthusiasts and environmentalists to make well-informed decisions on how to harness the unique
+                benefits
+                of
+                this eco-friendly resource for sustainable farming, carbon storage, and more.
+            </p>
+
+            <p class="block-text">
+                <strong>DISCLAIMER:</strong> This calculator provides estimates for the H/C molar ratio, which can
+                be
+                useful
+                for general assessment. However, it's important to note that the most accurate determination of the
+                hydrogen-to-carbon ratio for biochar requires the measurement of the total organic carbon. In this
+                case,
+                we
+                are accounting for total carbon, not organic carbon.
+            </p>
+            <p class="block-text" style="margin-bottom: 50px;">
+            </p>
+
+            <div class="formula">
+                <h2 style="font-size: 20px; margin-bottom: 10px; font-style: normal;">Formula</h2>
+                <p>
+                    𝐻/𝐶</sub> / (𝑚𝑜𝑙𝑎𝑟) = [H total(%) / C total(%)] / 12
+                </p>
+                <p style="margin-top: 20px;">
+                    <a href="https://puro.earth/articles/puro-standard-biochar-methodology-edition-2022-is-out-now-743"
+                        target="_blank">
+                        Reference
+                        <div style="margin-bottom: 35px;"></div>
+                    </a>
+                </p>
+            </div>
+
+            <label for="hydrogen_en">Enter the total amount of hydrogen:</label>
+            <input type="number" id="hydrogen_en" placeholder="Total Hydrogen in %">
+
+            <label for="carbon_en">Enter the total amount of carbon:</label>
+            <input type="number" id="carbon_en" placeholder="Total Carbon in %">
+
+            <!-- Additional input fields -->
+            <label for="biomassType_en">Biomass Type:</label>
+            <select id="biomassType_en" name="biomassType_en" style="width: 52%;" onchange="checkBiomassType_en()">
+                <option value="" selected disabled>Select</option>
+                <option value="Agave Bagasse">Agave bagasse</option>
+                <option value="Corn Stubble">Corn stubble</option>
+                <option value="Wood">Wood</option>
+                <option value="Sugar cane">Sugar cane</option>
+                <option value="Manure">Manure</option>
+                <option value="Bamboo">Bamboo</option>
+                <option value="Agricultural Waste">Agricultural waste</option>
+                <option value="Urban Green wWste">Urban green waste</option>
+                <option value="Blend">Blend</option>
+                <option value="Other Biomass">Other biomass</option>
+            </select>
+
+            <div id="customBiomassInput_en" style="display: none;">
+                <input type="text" id="customBiomass_en" name="customBiomass_en"
+                    placeholder="Enter custom biomass type">
+            </div>
+
+            <div id="BlendBiomassInput_en" style="display: none;">
+                <input type="text" id="BlendBiomass_en" name="BlendBiomass_en" placeholder="Enter custom biomass blend">
+            </div>
+
+            <label for="temperature_en">Pyrolysis Temperature:</label>
+            <input type="number" id="temperature_en" placeholder="Pyrolysis (°C)">
+
+            <label for="residenceMinutes_en">Residence Time:</label>
+            <div class="time-input" style="margin: 0 auto;">
+                <input type="number" id="residenceMinutes_en" placeholder="Minutes" min="0">
+            </div>
+
+            <label for="sampleDate_en">Sample Date:</label>
+            <input type="date" id="sampleDate_en">
+
+            <label for="lotNumber_en">Lot Number:</label>
+            <input type="text" id="lotNumber_en" placeholder="Lot Number">
+
+            <label for="productionDate_en">Production Date:</label>
+            <input type="date" id="productionDate_en" placeholder="Production Date">
+
+            <label for="sampleSize_en">Sample Size:</label>
+            <input type="number" id="sampleSize_en" placeholder="Sample Size (kg)">
+
+            <div class="btn-container">
+                <button onclick="calculateMolarRatio_en()">Calculate Molar Ratio</button>
+                <div style="margin: 10px;"></div>
+                <button onclick="downloadAsText_en()">Download as Text</button>
+            </div>
+
+            <p id="result_en"></p>
         </div>
 
-        <div id="BlendBiomassInput_en" style="display: none;">
-            <input type="text" id="BlendBiomass_en" name="BlendBiomass_en" placeholder="Enter custom biomass blend">
-        </div>
+        <script>
+            function setLanguage(language) {
+                var englishContent = document.querySelector('.english-content');
+                var spanishContent = document.querySelector('.spanish-content');
+                var headerTitle = document.querySelector('header h1');
 
-        <label for="temperature_en">Pyrolysis Temperature:</label>
-        <input type="number" id="temperature_en" placeholder="Pyrolysis (°C)">
+                if (language === 'en') {
+                    englishContent.style.display = 'block';
+                    spanishContent.style.display = 'none';
+                    // Change the header text for English
+                    headerTitle.textContent = 'H/C Molar Ratio Estimator';
+                } else if (language === 'es') {
+                    englishContent.style.display = 'none';
+                    spanishContent.style.display = 'block';
+                    // Change the header text for Spanish
+                    headerTitle.textContent = 'Estimador de Relación Molar H/C';
+                }
 
-        <label for="residenceMinutes_en">Residence Time:</label>
-        <div class="time-input" style="margin: 0 auto;">
-            <input type="number" id="residenceMinutes_en" placeholder="Minutes" min="0">
-        </div>
-
-        <label for="sampleDate_en">Sample Date:</label>
-        <input type="date" id="sampleDate_en">
-
-        <label for="lotNumber_en">Lot Number:</label>
-        <input type="text" id="lotNumber_en" placeholder="Lot Number">
-
-        <label for="productionDate_en">Production Date:</label>
-        <input type="date" id="productionDate_en" placeholder="Production Date">
-
-        <label for="sampleSize_en">Sample Size:</label>
-        <input type="number" id="sampleSize_en" placeholder="Sample Size (kg)">
-
-        <div class="btn-container">
-            <button onclick="calculateMolarRatio_en()">Calculate Molar Ratio</button>
-            <div style="margin: 10px;"></div>
-            <button onclick="downloadAsText_en()">Download as Text</button>
-        </div>
-
-        <p id="result_en"></p>
-    </div>
-
-    <script>
-        function setLanguage(language) {
-            var englishContent = document.querySelector('.english-content');
-            var spanishContent = document.querySelector('.spanish-content');
-
-            if (language === 'en') {
-                englishContent.style.display = 'block';
-                spanishContent.style.display = 'none';
-            } else if (language === 'es') {
-                englishContent.style.display = 'none';
-                spanishContent.style.display = 'block';
+                // Toggle active class on language buttons
+                document.querySelector('.language-dropdown button').textContent =
+                    language === 'en' ? 'Language' : 'Idioma';
             }
 
-            // Toggle active class on language buttons
-            document.querySelector('.language-dropdown button').textContent =
-                language === 'en' ? 'Language' : 'Idioma';
-        }
 
-        function toggleLanguage() {
-            var dropdownContent = document.querySelector('.language-dropdown-content');
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        }
-    </script>
-
-    <script>
-        function checkBiomassType_es() {
-            var biomassSelect = document.getElementById("biomassType");
-            var customBiomassInput = document.getElementById("customBiomassInput");
-            var blendBiomassInput = document.getElementById("BlendBiomassInput");
-
-            if (biomassSelect.value === "Otra biomasa") {
-                customBiomassInput.style.display = "block";
-                blendBiomassInput.style.display = "none";
-            } else if (biomassSelect.value === "Mezcla") {
-                customBiomassInput.style.display = "none";
-                blendBiomassInput.style.display = "block";
-            } else {
-                customBiomassInput.style.display = "none";
-                blendBiomassInput.style.display = "none";
-                // Borrar cualquier biomasa personalizada o mezcla ingresada previamente
-                document.getElementById("customBiomass").value = "";
-                document.getElementById("BlendBiomass").value = "";
-            }
-        }
-
-        function calculateMolarRatio_es() {
-            // Obtener los valores de los campos de entrada
-            var hydrogen = parseFloat(document.getElementById("hydrogen").value);
-            var carbon = parseFloat(document.getElementById("carbon").value);
-            var biomassSelect = document.getElementById("biomassType"); // Updated ID
-            var biomassType = biomassSelect.value === "Otra biomasa"
-                ? document.getElementById("customBiomass").value
-                : biomassSelect.value; // Updated ID
-            var temperature = parseFloat(document.getElementById("temperature").value);
-            var residenceMinutes = parseInt(document.getElementById("residenceMinutes").value);
-            var sampleDate = document.getElementById("sampleDate").value;
-            var lotNumber = document.getElementById("lotNumber").value;
-            var productionDate = document.getElementById("productionDate").value;
-            var sampleSize = parseFloat(document.getElementById("sampleSize").value);
-            var blendBiomass = document.getElementById("BlendBiomass").value; // Obtener el valor de la mezcla personalizada
-
-            // Inicializar la bandera de error
-            var hasError = false;
-
-            // Verificar si la entrada es válida para las proporciones de hidrógeno y carbono
-            if (isNaN(hydrogen) || isNaN(carbon) || carbon === 0) {
-                document.getElementById("result").textContent = "Por favor, ingrese números válidos para las proporciones de hidrógeno y carbono. El carbono no puede ser cero.";
-                hasError = true;
+            function toggleLanguage() {
+                var dropdownContent = document.querySelector('.language-dropdown-content');
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
             }
 
-            // Si no hay error, realizar el cálculo y mostrar el resultado
-            if (!hasError) {
-                // Calcular la Relación Molar H/C con 5 decimales
-                var molarRatio = (hydrogen / carbon) * 12;
+            // Set the initial language to Spanish when the page loads
+            setLanguage('es');
+        </script>
 
-                // Preparar el mensaje de resultado
-                var mensajeResultado = "Relación Molar H/C: " + molarRatio.toFixed(5) + "\n";
 
-                // Mostrar los valores de entrada con etiquetas si se especifica, de lo contrario, mostrar un campo en blanco
-                if (biomassType) {
-                    if (biomassSelect.value === "Mezcla") {
-                        mensajeResultado += "Tipo de Biomasa: " + blendBiomass + "\n";
-                    } else {
-                        mensajeResultado += "Tipo de Biomasa: " + biomassType + "\n";
+        <script>
+            function checkBiomassType_es() {
+                var biomassSelect = document.getElementById("biomassType");
+                var customBiomassInput = document.getElementById("customBiomassInput");
+                var blendBiomassInput = document.getElementById("BlendBiomassInput");
+
+                if (biomassSelect.value === "Otra biomasa") {
+                    customBiomassInput.style.display = "block";
+                    blendBiomassInput.style.display = "none";
+                } else if (biomassSelect.value === "Mezcla") {
+                    customBiomassInput.style.display = "none";
+                    blendBiomassInput.style.display = "block";
+                } else {
+                    customBiomassInput.style.display = "none";
+                    blendBiomassInput.style.display = "none";
+                    // Borrar cualquier biomasa personalizada o mezcla ingresada previamente
+                    document.getElementById("customBiomass").value = "";
+                    document.getElementById("BlendBiomass").value = "";
+                }
+            }
+
+            function calculateMolarRatio_es() {
+                // Obtener los valores de los campos de entrada
+                var hydrogen = parseFloat(document.getElementById("hydrogen").value);
+                var carbon = parseFloat(document.getElementById("carbon").value);
+                var biomassSelect = document.getElementById("biomassType"); // Updated ID
+                var biomassType = biomassSelect.value === "Otra biomasa"
+                    ? document.getElementById("customBiomass").value
+                    : biomassSelect.value; // Updated ID
+                var temperature = parseFloat(document.getElementById("temperature").value);
+                var residenceMinutes = parseInt(document.getElementById("residenceMinutes").value);
+                var sampleDate = document.getElementById("sampleDate").value;
+                var lotNumber = document.getElementById("lotNumber").value;
+                var productionDate = document.getElementById("productionDate").value;
+                var sampleSize = parseFloat(document.getElementById("sampleSize").value);
+                var blendBiomass = document.getElementById("BlendBiomass").value; // Obtener el valor de la mezcla personalizada
+
+                // Inicializar la bandera de error
+                var hasError = false;
+
+                // Verificar si la entrada es válida para las proporciones de hidrógeno y carbono
+                if (isNaN(hydrogen) || isNaN(carbon) || carbon === 0) {
+                    document.getElementById("result").textContent = "Por favor, ingrese números válidos para las proporciones de hidrógeno y carbono. El carbono no puede ser cero.";
+                    hasError = true;
+                }
+
+                // Si no hay error, realizar el cálculo y mostrar el resultado
+                if (!hasError) {
+                    // Calcular la Relación Molar H/C con 5 decimales
+                    var molarRatio = (hydrogen / carbon) * 12;
+
+                    // Preparar el mensaje de resultado
+                    var mensajeResultado = "Relación Molar H/C: " + molarRatio.toFixed(5) + "\n";
+
+                    // Mostrar los valores de entrada con etiquetas si se especifica, de lo contrario, mostrar un campo en blanco
+                    if (biomassType) {
+                        if (biomassSelect.value === "Mezcla") {
+                            mensajeResultado += "Tipo de Biomasa: " + blendBiomass + "\n";
+                        } else {
+                            mensajeResultado += "Tipo de Biomasa: " + biomassType + "\n";
+                        }
                     }
-                }
-                if (!isNaN(temperature)) {
-                    mensajeResultado += "Temperatura: " + temperature + "°C\n";
-                }
-                if (!isNaN(residenceMinutes)) {
-                    mensajeResultado += "Tiempo de Residencia: " + residenceMinutes + " minutos\n";
-                }
-                if (sampleDate) {
-                    mensajeResultado += "Fecha de Muestra: " + sampleDate + "\n";
-                }
-                if (lotNumber) {
-                    mensajeResultado += "Número de Lote: " + lotNumber + "\n";
-                }
-                if (productionDate) {
-                    mensajeResultado += "Fecha de Producción: " + productionDate + "\n";
-                }
-                if (!isNaN(sampleSize)) {
-                    mensajeResultado += "Tamaño de la Muestra: " + sampleSize + " kg\n";
-                }
-
-                // Mostrar el resultado
-                document.getElementById("result").textContent = mensajeResultado;
-            }
-        }
-
-        function downloadAsText() {
-            // Obtener el texto del resultado
-            var textoResultado = document.getElementById("result").textContent;
-
-            // Crear un blob con el contenido del texto
-            var blob = new Blob([textoResultado], { type: "text/plain" });
-
-            // Crear una URL temporal para el blob
-            var url = window.URL.createObjectURL(blob);
-
-            // Crear un elemento de enlace temporal para activar la descarga
-            var a = document.createElement("a");
-            a.href = url;
-            a.download = "relacion_molar.txt";
-
-            // Activar un evento de clic para descargar el archivo
-            a.click();
-
-            // Liberar los recursos asignados
-            window.URL.revokeObjectURL(url);
-        }
-
-        function checkBiomassType_en() {
-            var biomassSelect = document.getElementById("biomassType_en");
-            var customBiomassInput = document.getElementById("customBiomassInput_en");
-            var blendBiomassInput = document.getElementById("BlendBiomassInput_en");
-
-            if (biomassSelect.value === "Other Biomass") {
-                customBiomassInput.style.display = "block";
-                blendBiomassInput.style.display = "none";
-            } else if (biomassSelect.value === "Blend") {
-                customBiomassInput.style.display = "none";
-                blendBiomassInput.style.display = "block";
-            } else {
-                customBiomassInput.style.display = "none";
-                blendBiomassInput.style.display = "none";
-                // Clear any previously entered custom biomass or blend
-                document.getElementById("customBiomass_en").value = "";
-                document.getElementById("BlendBiomass_en").value = "";
-            }
-        }
-
-
-        function calculateMolarRatio_en() {
-            // Obtain the values from the input fields
-            var hydrogen = parseFloat(document.getElementById("hydrogen_en").value);
-            var carbon = parseFloat(document.getElementById("carbon_en").value);
-            var biomassSelect = document.getElementById("biomassType_en");
-            var biomassType = biomassSelect.value === "Other biomass"
-                ? document.getElementById("customBiomass_en").value
-                : biomassSelect.value;
-            var temperature = parseFloat(document.getElementById("temperature_en").value);
-            var residenceMinutes = parseInt(document.getElementById("residenceMinutes_en").value);
-            var sampleDate = document.getElementById("sampleDate_en").value;
-            var lotNumber = document.getElementById("lotNumber_en").value;
-            var productionDate = document.getElementById("productionDate_en").value;
-            var sampleSize = parseFloat(document.getElementById("sampleSize_en").value);
-            var blendBiomass = document.getElementById("BlendBiomass_en").value;
-
-            // Initialize the error flag
-            var hasError = false;
-
-            // Check if the input is valid for hydrogen and carbon ratios
-            if (isNaN(hydrogen) || isNaN(carbon) || carbon === 0) {
-                document.getElementById("result_en").textContent = "Please enter valid numbers for hydrogen and carbon ratios. Carbon cannot be zero.";
-                hasError = true;
-            }
-
-            // If there is no error, perform the calculation and display the result
-            if (!hasError) {
-                // Calculate the H/C Molar Ratio with 5 decimal places
-                var molarRatio = (hydrogen / carbon) * 12;
-
-                // Prepare the result message
-                var resultMessage = "H/C Molar Ratio: " + molarRatio.toFixed(5) + "<br>";
-
-                // Display the input values with labels if specified, otherwise display a blank field
-                if (biomassType) {
-                    if (biomassSelect.value === "Blend") {
-                        resultMessage += "Biomass Type: " + blendBiomass + "<br>";
-                    } else {
-                        resultMessage += "Biomass Type: " + biomassType + "<br>";
+                    if (!isNaN(temperature)) {
+                        mensajeResultado += "Temperatura: " + temperature + "°C\n";
                     }
-                }
-                if (!isNaN(temperature)) {
-                    resultMessage += "Pyrolysis Temperature: " + temperature + "°C<br>";
-                }
-                if (!isNaN(residenceMinutes)) {
-                    resultMessage += "Residence Time: " + residenceMinutes + " minutes<br>";
-                }
-                if (sampleDate) {
-                    resultMessage += "Sample Date: " + sampleDate + "<br>";
-                }
-                if (lotNumber) {
-                    resultMessage += "Lot Number: " + lotNumber + "<br>";
-                }
-                if (productionDate) {
-                    resultMessage += "Production Date: " + productionDate + "<br>";
-                }
-                if (!isNaN(sampleSize)) {
-                    resultMessage += "Sample Size: " + sampleSize + " kg<br>";
-                }
+                    if (!isNaN(residenceMinutes)) {
+                        mensajeResultado += "Tiempo de Residencia: " + residenceMinutes + " minutos\n";
+                    }
+                    if (sampleDate) {
+                        mensajeResultado += "Fecha de Muestra: " + sampleDate + "\n";
+                    }
+                    if (lotNumber) {
+                        mensajeResultado += "Número de Lote: " + lotNumber + "\n";
+                    }
+                    if (productionDate) {
+                        mensajeResultado += "Fecha de Producción: " + productionDate + "\n";
+                    }
+                    if (!isNaN(sampleSize)) {
+                        mensajeResultado += "Tamaño de la Muestra: " + sampleSize + " kg\n";
+                    }
 
-                // Display the result
-                document.getElementById("result_en").innerHTML = resultMessage;
+                    // Mostrar el resultado
+                    document.getElementById("result").textContent = mensajeResultado;
+                }
             }
-        }
+
+            function downloadAsText() {
+                // Obtener el texto del resultado
+                var textoResultado = document.getElementById("result").textContent;
+
+                // Crear un blob con el contenido del texto
+                var blob = new Blob([textoResultado], { type: "text/plain" });
+
+                // Crear una URL temporal para el blob
+                var url = window.URL.createObjectURL(blob);
+
+                // Crear un elemento de enlace temporal para activar la descarga
+                var a = document.createElement("a");
+                a.href = url;
+                a.download = "relacion_molar.txt";
+
+                // Activar un evento de clic para descargar el archivo
+                a.click();
+
+                // Liberar los recursos asignados
+                window.URL.revokeObjectURL(url);
+            }
+
+            function checkBiomassType_en() {
+                var biomassSelect = document.getElementById("biomassType_en");
+                var customBiomassInput = document.getElementById("customBiomassInput_en");
+                var blendBiomassInput = document.getElementById("BlendBiomassInput_en");
+
+                if (biomassSelect.value === "Other Biomass") {
+                    customBiomassInput.style.display = "block";
+                    blendBiomassInput.style.display = "none";
+                } else if (biomassSelect.value === "Blend") {
+                    customBiomassInput.style.display = "none";
+                    blendBiomassInput.style.display = "block";
+                } else {
+                    customBiomassInput.style.display = "none";
+                    blendBiomassInput.style.display = "none";
+                    // Clear any previously entered custom biomass or blend
+                    document.getElementById("customBiomass_en").value = "";
+                    document.getElementById("BlendBiomass_en").value = "";
+                }
+            }
+
+            function calculateMolarRatio_en() {
+                // Obtain the values from the input fields
+                var hydrogen = parseFloat(document.getElementById("hydrogen_en").value);
+                var carbon = parseFloat(document.getElementById("carbon_en").value);
+                var biomassSelect = document.getElementById("biomassType_en");
+                var biomassType = biomassSelect.value === "Other Biomass"
+                    ? document.getElementById("customBiomass_en").value
+                    : biomassSelect.value;
+                var temperature = parseFloat(document.getElementById("temperature_en").value);
+                var residenceMinutes = parseInt(document.getElementById("residenceMinutes_en").value);
+                var sampleDate = document.getElementById("sampleDate_en").value;
+                var lotNumber = document.getElementById("lotNumber_en").value;
+                var productionDate = document.getElementById("productionDate_en").value;
+                var sampleSize = parseFloat(document.getElementById("sampleSize_en").value);
+                var blendBiomass = document.getElementById("BlendBiomass_en").value;
+
+                // Initialize the error flag
+                var hasError = false;
+
+                // Check if the input is valid for hydrogen and carbon ratios
+                if (isNaN(hydrogen) || isNaN(carbon) || carbon === 0) {
+                    document.getElementById("result_en").textContent = "Please enter valid numbers for hydrogen and carbon ratios. Carbon cannot be zero.";
+                    hasError = true;
+                }
+
+                // If there is no error, perform the calculation and display the result
+                if (!hasError) {
+                    // Calculate the H/C Molar Ratio with 5 decimal places
+                    var molarRatio = (hydrogen / carbon) * 12;
+
+                    // Prepare the result message
+                    var resultMessage = "H/C Molar Ratio: " + molarRatio.toFixed(5) + "<br>";
+
+                    // Display the input values with labels if specified, otherwise display a blank field
+                    if (biomassType) {
+                        if (biomassSelect.value === "Blend") {
+                            resultMessage += "Biomass Type: " + blendBiomass + "<br>";
+                        } else {
+                            resultMessage += "Biomass Type: " + biomassType + "<br>";
+                        }
+                    }
+                    if (!isNaN(temperature)) {
+                        resultMessage += "Pyrolysis Temperature: " + temperature + "°C<br>";
+                    }
+                    if (!isNaN(residenceMinutes)) {
+                        resultMessage += "Residence Time: " + residenceMinutes + " minutes<br>";
+                    }
+                    if (sampleDate) {
+                        resultMessage += "Sample Date: " + sampleDate + "<br>";
+                    }
+                    if (lotNumber) {
+                        resultMessage += "Lot Number: " + lotNumber + "<br>";
+                    }
+                    if (productionDate) {
+                        resultMessage += "Production Date: " + productionDate + "<br>";
+                    }
+                    if (!isNaN(sampleSize)) {
+                        resultMessage += "Sample Size: " + sampleSize + " kg<br>";
+                    }
+
+                    // Display the result
+                    document.getElementById("result_en").innerHTML = resultMessage;
+                }
+            }
+
+            function downloadAsText_en() {
+                // Get the result text
+                var resultText = document.getElementById("result_en").textContent;
+
+                // Create a blob with the text content
+                var blob = new Blob([resultText], { type: "text/plain" });
+
+                // Create a temporary URL for the blob
+                var url = window.URL.createObjectURL(blob);
+
+                // Create a temporary link element to trigger the download
+                var a = document.createElement("a");
+                a.href = url;
+                a.download = "molar_ratio.txt";
+
+                // Trigger a click event to download the file
+                a.click();
+
+                // Release allocated resources
+                window.URL.revokeObjectURL(url);
+            }
 
 
-
-        function downloadAsText_en() {
-            // Get the result text
-            var resultText = document.getElementById("result_en").textContent;
-
-            // Create a blob with the text content
-            var blob = new Blob([resultText], { type: "text/plain" });
-
-            // Create a temporary URL for the blob
-            var url = window.URL.createObjectURL(blob);
-
-            // Create a temporary link element to trigger the download
-            var a = document.createElement("a");
-            a.href = url;
-            a.download = "molar_ratio.txt";
-
-            // Trigger a click event to download the file
-            a.click();
-
-            // Release allocated resources
-            window.URL.revokeObjectURL(url);
-        }
-
-
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>
