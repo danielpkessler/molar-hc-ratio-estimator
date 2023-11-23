@@ -14,46 +14,43 @@
 
         header {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             background-color: #f5f5f5;
-            /* Light gray color for the header background */
             color: #000;
-            /* Set text color to black */
             padding: 10px;
             border-bottom: 3px solid #000;
-            /* Thicker black border at the bottom of the header */
         }
 
         #logoContainer {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             width: 100%;
-        }
-
-        #companyLogos img {
-            margin-right: 10px;
         }
 
         #companyLinks {
             text-align: left;
-            margin: 0 auto;
-            margin-left: 5px;
-            /* Adjust the margin as needed */
+            /* Align text to the left */
         }
 
         #companyLinks a {
             color: #000;
-            /* Set link color to black */
             text-decoration: none;
             margin: 0 10px;
+            display: block;
         }
 
         #companyLinks a strong {
             font-weight: bold;
-            /* Make the text bold */
+        }
+
+        #companyLogos {
+            display: flex;
+            align-items: center;
+        }
+
+        #companyLogos img {
+            margin-right: 10px;
         }
 
         body {
@@ -107,21 +104,26 @@
         }
 
         .btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+}
 
-        button {
-            padding: 10px 20px;
-            background-color: #f5f5f5;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.btn-container button {
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-container button:nth-child(2) {
+    margin-right: auto;
+    margin-left: auto;
+}
 
         .dark-gray-button {
             background-color: #888;
@@ -251,14 +253,20 @@
 <body>
     <header>
         <div id="logoContainer">
-            <div id="companyLogos">
-                <img src="logoGBS.png" alt="General Biochar Systems Logo" width="100">
-                <img src="logo150.png" alt="The Next 150 Logo" width="120">
-            </div>
             <div id="companyLinks">
-                <a href="https://www.generalbiochar.com/" target="_blank">Desarrollado por<br>
-                    <strong>General Biochar Systems </strong>y</a><br>
-                <a href="https://www.thenext150.com/" target="_blank"> <strong>The Next 150</strong></a>
+                <a class="spanish-content" href="https://www.generalbiochar.com/" target="_blank">
+                    <strong>Desarrollado por</strong> <br>
+
+                    <a class="english-content" href="https://www.generalbiochar.com/" target="_blank">
+                        <strong>Powered by</strong> <br>
+            </div>
+            <div id="companyLogos">
+                <a href="https://www.generalbiochar.com/" target="_blank">
+                    <img src="logoGBS.png" alt="General Biochar Systems Logo" width="100">
+                </a>
+                <a href="https://www.thenext150.com/" target="_blank">
+                    <img src="logo150.png" alt="The Next 150 Logo" width="120">
+                </a>
             </div>
         </div>
         <!-- Add your existing content here -->
@@ -299,9 +307,9 @@
                 El biochar con una relación H/C más alta indica una mayor reactividad y potencial como fuente de
                 energía, lo
                 que lo
-                convierte en una excelente opción para aplicaciones como la mejora del suelo. Por el contrario, una
-                relación más baja sugiere una mayor estabilidad, lo que significa que este biohcar en ideal para la
-                secuestración de carbono. Comprender la realción Molar H/C ayuda a los entusiastas del biochar y a
+                convierte en una excelente opción para aplicaciones como la mejora del suelo. Por lo contrario, una
+                relación más baja sugiere una mayor estabilidad, lo que significa que este biochar en ideal para la
+                secuestración de carbono. Comprender la relación Molar H/C ayuda a los entusiastas del biochar y a
                 los
                 defensores del medio ambiente a tomar decisiones sobre cómo aprovechar los beneficios únicos de
                 este recurso que favorece el cuidado del medio ambiente para la agricultura sustentable, el
@@ -392,6 +400,7 @@
                 <button onclick="calculateMolarRatio_es()">Calcular Relación Molar</button>
                 <div style="margin: 10px;"></div>
                 <button onclick="downloadAsText()">Descargar como Texto</button>
+                <button onclick="clearResults_es()">Borrar</button>
             </div>
 
             <p id="result"></p>
@@ -512,6 +521,7 @@
                 <button onclick="calculateMolarRatio_en()">Calculate Molar Ratio</button>
                 <div style="margin: 10px;"></div>
                 <button onclick="downloadAsText_en()">Download as Text</button>
+                <button onclick="clearResults_en()">Clear</button>
             </div>
 
             <p id="result_en"></p>
@@ -519,20 +529,19 @@
 
         <script>
             function setLanguage(language) {
-                var englishContent = document.querySelector('.english-content');
-                var spanishContent = document.querySelector('.spanish-content');
-                var headerTitle = document.querySelector('header h1');
+                var spanishContent = document.querySelectorAll('.spanish-content');
+                var englishContent = document.querySelectorAll('.english-content');
 
                 if (language === 'en') {
-                    englishContent.style.display = 'block';
-                    spanishContent.style.display = 'none';
+                    showElements(englishContent);
+                    hideElements(spanishContent);
                     // Change the header text for English
-                    headerTitle.textContent = 'H/C Molar Ratio Estimator';
+                    document.querySelector('header h1').textContent = 'H/C Molar Ratio Estimator';
                 } else if (language === 'es') {
-                    englishContent.style.display = 'none';
-                    spanishContent.style.display = 'block';
+                    showElements(spanishContent);
+                    hideElements(englishContent);
                     // Change the header text for Spanish
-                    headerTitle.textContent = 'Estimador de Relación Molar H/C';
+                    document.querySelector('header h1').textContent = 'Estimador de Relación Molar H/C';
                 }
 
                 // Toggle active class on language buttons
@@ -540,6 +549,17 @@
                     language === 'en' ? 'Language' : 'Idioma';
             }
 
+            function showElements(elements) {
+                elements.forEach(function (element) {
+                    element.style.display = 'block';
+                });
+            }
+
+            function hideElements(elements) {
+                elements.forEach(function (element) {
+                    element.style.display = 'none';
+                });
+            }
 
             function toggleLanguage() {
                 var dropdownContent = document.querySelector('.language-dropdown-content');
@@ -549,7 +569,6 @@
             // Set the initial language to Spanish when the page loads
             setLanguage('es');
         </script>
-
 
         <script>
             function checkBiomassType_es() {
@@ -765,9 +784,19 @@
                 // Release allocated resources
                 window.URL.revokeObjectURL(url);
             }
-
-
         </script>
+
+        <script>
+            function clearResults_es() {
+                document.getElementById("result").textContent = "";
+            }
+            function clearResults_en() {
+                document.getElementById("result_en").innerHTML = "";
+            }
+        </script>
+
+
+
     </body>
 
 </html>
