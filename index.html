@@ -104,26 +104,32 @@
         }
 
         .btn-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 20px;
-}
+            text-align: center;
+            margin-top: 50px;
+        }
 
-.btn-container button {
-    padding: 10px 20px;
-    background-color: #f5f5f5;
-    color: #333;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
+        .btn-container button {
+            padding: 10px 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 5px;
+            /* Optional: Add some margin to the buttons */
+        }
 
-.btn-container button:nth-child(2) {
-    margin-right: auto;
-    margin-left: auto;
-}
+
+        .btn-container button:nth-child(2) {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .btn-container button:nth-child(3) {
+            margin-right: auto;
+            margin-left: auto;
+        }
 
         .dark-gray-button {
             background-color: #888;
@@ -399,7 +405,7 @@
             <div class="btn-container">
                 <button onclick="calculateMolarRatio_es()">Calcular Relación Molar</button>
                 <div style="margin: 10px;"></div>
-                <button onclick="downloadAsText()">Descargar como Texto</button>
+                <button onclick="downloadAsText_es()">Descargar como Texto</button>
                 <button onclick="clearResults_es()">Borrar</button>
             </div>
 
@@ -656,25 +662,28 @@
                 }
             }
 
-            function downloadAsText() {
-                // Obtener el texto del resultado
-                var textoResultado = document.getElementById("result").textContent;
+            function downloadAsText_es() {
+                // Obtain the text of the result
+                var textResult = document.getElementById("result").textContent;
 
-                // Crear un blob con el contenido del texto
-                var blob = new Blob([textoResultado], { type: "text/plain" });
+                // Separate each category with a newline character
+                var separatedText = textResult.replace(/: /g, ":\n");
 
-                // Crear una URL temporal para el blob
+                // Create a blob with the content of the text
+                var blob = new Blob([separatedText], { type: "text/plain" });
+
+                // Create a temporary URL for the blob
                 var url = window.URL.createObjectURL(blob);
 
-                // Crear un elemento de enlace temporal para activar la descarga
+                // Create a temporary link element to trigger the download
                 var a = document.createElement("a");
                 a.href = url;
                 a.download = "relacion_molar.txt";
 
-                // Activar un evento de clic para descargar el archivo
+                // Trigger a click event to download the file
                 a.click();
 
-                // Liberar los recursos asignados
+                // Release allocated resources
                 window.URL.revokeObjectURL(url);
             }
 
@@ -764,11 +773,14 @@
             }
 
             function downloadAsText_en() {
-                // Get the result text
-                var resultText = document.getElementById("result_en").textContent;
+                // Get the text of the result
+                var textResult = document.getElementById("result_en").textContent;
 
-                // Create a blob with the text content
-                var blob = new Blob([resultText], { type: "text/plain" });
+                // Separate each category with a newline character
+                var separatedText = textResult.replace(/: /g, ":\n");
+
+                // Create a blob with the content of the text
+                var blob = new Blob([separatedText], { type: "text/plain" });
 
                 // Create a temporary URL for the blob
                 var url = window.URL.createObjectURL(blob);
@@ -784,18 +796,50 @@
                 // Release allocated resources
                 window.URL.revokeObjectURL(url);
             }
-        </script>
 
-        <script>
+
             function clearResults_es() {
+                // Clear the result display
                 document.getElementById("result").textContent = "";
+
+                // Reset input fields
+                document.getElementById("result").textContent = "";
+                document.getElementById("hydrogen").value = "";
+                document.getElementById("carbon").value = "";
+                document.getElementById("biomassType").value = "";
+                document.getElementById("customBiomass").value = "";
+                document.getElementById("customBiomassInput").style.display = "none";
+                document.getElementById("BlendBiomassInput").style.display = "none";
+                document.getElementById("BlendBiomass").value = "";
+                document.getElementById("temperature").value = "";
+                document.getElementById("residenceMinutes").value = "";
+                document.getElementById("sampleDate").value = "";
+                document.getElementById("lotNumber").value = "";
+                document.getElementById("productionDate").value = "";
+                document.getElementById("sampleSize").value = "";
             }
+
             function clearResults_en() {
+                // Clear the result display
                 document.getElementById("result_en").innerHTML = "";
+
+                // Reset input fields
+                document.getElementById("result_en").innerHTML = "";
+                document.getElementById("hydrogen_en").value = "";
+                document.getElementById("carbon_en").value = "";
+                document.getElementById("biomassType_en").value = "";
+                document.getElementById("customBiomass_en").value = "";
+                document.getElementById("BlendBiomass_en").value = "";
+                document.getElementById("customBiomassInput_en").style.display = "none";
+                document.getElementById("BlendBiomassInput_en").style.display = "none";
+                document.getElementById("temperature_en").value = "";
+                document.getElementById("residenceMinutes_en").value = "";
+                document.getElementById("sampleDate_en").value = "";
+                document.getElementById("lotNumber_en").value = "";
+                document.getElementById("productionDate_en").value = "";
+                document.getElementById("sampleSize_en").value = "";
             }
         </script>
-
-
 
     </body>
 
